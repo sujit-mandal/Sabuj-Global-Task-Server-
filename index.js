@@ -42,13 +42,18 @@ async function run() {
       const result = await studentInformationCollection.find().toArray();
       res.send(result);
     });
-    console.log(
-      "Pinged your deployment. You successfully connected to MongoDB!"
-    );
+
     app.get("/all-blogs", async (req, res) => {
       const result = await blogCollection.find().toArray();
       res.send(result);
     });
+    app.get("/blog-details/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await blogCollection.findOne(query);
+      res.send(result);
+    });
+
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
     );
